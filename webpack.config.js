@@ -98,7 +98,12 @@ module.exports = {
       minChunks: function (module) {
         return module.resource && module.resource.indexOf(path.resolve(__dirname, 'src')) === -1;
       }
-    })
+    }),
+    new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery"
+    })     
   ]
 };
 
