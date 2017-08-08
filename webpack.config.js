@@ -1,5 +1,5 @@
 /**
- * @author Zac Chou 
+ * @author Zac Chou
  * @description Webpakc Config use for dev and dist
  */
 
@@ -26,7 +26,7 @@ module.exports = {
   },
   // externals: {
   //   jquery: 'jQuery'
-  // },  
+  // },
   entry: {
     main: [
       './src/js/main.js'
@@ -37,6 +37,16 @@ module.exports = {
   },
   module: {
     loaders: [{
+      test: /\.html$/,
+      use: [ {
+        loader: 'html-loader',
+        options: {
+          attrs: ['img:src'],
+          minimize: false,
+          root: path.resolve(__dirname, 'src'),
+        }
+      }],
+    }, {
       test: /\.jsx?$/,
       exclude: /(node_modules|bower_components)/,
       use: [{
@@ -60,7 +70,8 @@ module.exports = {
           loader: 'less-loader'
         }],
         // use style-loader in development
-        fallback: 'style-loader'
+        fallback: 'style-loader',
+        publicPath: '../'
       })
     }, {
       test: /\.css$/,
@@ -76,17 +87,28 @@ module.exports = {
 
         }],
         // use style-loader in development
-        fallback: 'style-loader'
+        fallback: 'style-loader',
+        publicPath: '../'
       })
     }, {
       test: /\.(jpg|jpeg|gif|png)$/i,
       use: [
-        { loader: 'file-loader' }
+        {
+          loader: 'file-loader',
+          options: {
+            name: 'images/[name].[ext]'
+          }
+       }
       ]
     }, {
       test: /\.(eot|svg|ttf|woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
       use: [
-        { loader: 'file-loader' }
+        {
+          loader: 'file-loader',
+          options: {
+            name: 'fonts/[name].[ext]'
+          }
+        }
       ]
     }]
   },
@@ -103,7 +125,7 @@ module.exports = {
         $: "jquery",
         jQuery: "jquery",
         "window.jQuery": "jquery"
-    })     
+    })
   ]
 };
 
